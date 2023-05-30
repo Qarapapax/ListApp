@@ -4,12 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.listapp.domain.ShopItem
 import com.example.listapp.domain.ShopListRepository
-import java.lang.RuntimeException
 
 object ShopListRepositoryImpl : ShopListRepository {
 
     private val shopListLiveData = MutableLiveData<List<ShopItem>>()
-    private val shopList = mutableListOf<ShopItem>()
+    private val shopList = sortedSetOf<ShopItem>({ o1, o2 -> o1.id.compareTo(o2.id) })
     private var autoIncrementId = 0
 
     init {
@@ -47,7 +46,7 @@ object ShopListRepositoryImpl : ShopListRepository {
         return shopListLiveData
     }
 
-    private fun updateList(){
-        shopListLiveData.value= shopList.toList()
+    private fun updateList() {
+        shopListLiveData.value = shopList.toList()
     }
 }
