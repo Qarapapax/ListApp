@@ -17,13 +17,22 @@ class MainActivity : AppCompatActivity() {
         setupRecyclerView()
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
         viewModel.shopList.observe(this) {
-            adapter.shopList=it
+            adapter.shopList = it
         }
     }
 
     private fun setupRecyclerView() {
         val rvShopList = findViewById<RecyclerView>(R.id.rv_shop_list)
         adapter = ShopListAdapter()
-        rvShopList.adapter = adapter
+        with(rvShopList) {
+            adapter = adapter
+            recycledViewPool.setMaxRecycledViews(
+                ShopListAdapter.VIEW_TYPE_ENABLED, ShopListAdapter.MAX_POL_SIZE
+            )
+            recycledViewPool.setMaxRecycledViews(
+                ShopListAdapter.VIEW_TYPE_DISABLED, ShopListAdapter.MAX_POL_SIZE
+            )
+        }
+
     }
 }
