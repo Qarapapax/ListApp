@@ -3,4 +3,7 @@
     <string name="add">Add</string>
     <string name="item">Item</string>
     <string name="_1">1</string>
+    <string name="name">Name</string>
+    <string name="count">count</string>
+    <string name="save">Save</string>
 </resources>
