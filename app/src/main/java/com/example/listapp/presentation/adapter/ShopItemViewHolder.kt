@@ -1,4 +1,4 @@
-package com.example.listapp.presentation
+package com.example.listapp.presentation.adapter
 
 import android.view.View
 import android.widget.TextView
