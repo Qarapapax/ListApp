@@ -66,7 +66,7 @@ class ShopItemFragment(
             tilName.error = message
         }
         viewModel.shouldCloseScreen.observe(viewLifecycleOwner) {
-            finish()
+            activity?.onBackPressedDispatcher?.onBackPressed()
         }
     }
 
@@ -143,18 +143,27 @@ class ShopItemFragment(
         private const val MODE_ADD = "add"
         private const val EXTRA_SHOP_ITEM_ID = "extra_shop_item_id"
         private const val MODE_UNKNOWN = ""
-        fun newIntentAddItem(context: Context): Intent {
-            val intent = Intent(context, ShopItemActivity::class.java)
-            intent.putExtra(EXTRA_SCREEN_MODE, MODE_ADD)
-            return intent
+
+        fun newInstanceAddItem(): ShopItemFragment {
+            return ShopItemFragment(MODE_ADD)
         }
 
-        fun newIntentEditItem(context: Context, shopItemId: Int): Intent {
-            val intent = Intent(context, ShopItemActivity::class.java)
-            intent.putExtra(EXTRA_SCREEN_MODE, MODE_EDIT)
-            intent.putExtra(EXTRA_SHOP_ITEM_ID, shopItemId)
-            return intent
+        fun newInstanceEditItem(shopItemId: Int): ShopItemFragment {
+            return ShopItemFragment(MODE_EDIT, shopItemId)
         }
+
+//        fun newIntentAddItem(context: Context): Intent {
+//            val intent = Intent(context, ShopItemActivity::class.java)
+//            intent.putExtra(EXTRA_SCREEN_MODE, MODE_ADD)
+//            return intent
+//        }
+//
+//        fun newIntentEditItem(context: Context, shopItemId: Int): Intent {
+//            val intent = Intent(context, ShopItemActivity::class.java)
+//            intent.putExtra(EXTRA_SCREEN_MODE, MODE_EDIT)
+//            intent.putExtra(EXTRA_SHOP_ITEM_ID, shopItemId)
+//            return intent
+//        }
     }
 }
 
