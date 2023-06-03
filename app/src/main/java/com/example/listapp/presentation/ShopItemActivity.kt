@@ -26,7 +26,7 @@ class ShopItemActivity : AppCompatActivity() {
 //    private lateinit var saveButton: Button
 
 //    private var screenMode = MODE_UNKNOWN
-    private var shopItemId = ShopItem.UNDEFINED_ID
+//    private var shopItemId = ShopItem.UNDEFINED_ID
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_shop_item)
