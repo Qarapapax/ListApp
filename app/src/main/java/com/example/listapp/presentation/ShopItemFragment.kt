@@ -1,7 +1,6 @@
 package com.example.listapp.presentation
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -16,10 +15,10 @@ import com.example.listapp.R
 import com.example.listapp.domain.ShopItem
 import com.example.listapp.presentation.viewmodels.ShopItemViewModel
 import com.google.android.material.textfield.TextInputLayout
-import java.lang.RuntimeException
 
 class ShopItemFragment : Fragment() {
     private lateinit var viewModel: ShopItemViewModel
+    private lateinit var onEditingFinishedListener: OnEditingFinishedListener
 
     lateinit var tilName: TextInputLayout
     private lateinit var tilCount: TextInputLayout
@@ -29,6 +28,14 @@ class ShopItemFragment : Fragment() {
 
     private var screenMode = MODE_UNKNOWN
     private var shopItemId = ShopItem.UNDEFINED_ID
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is OnEditingFinishedListener) {
+            onEditingFinishedListener = context
+        } else {
+            throw RuntimeException("Activity must implement OnEditingFinishedListener")
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,7 +75,7 @@ class ShopItemFragment : Fragment() {
             tilName.error = message
         }
         viewModel.shouldCloseScreen.observe(viewLifecycleOwner) {
-            activity?.onBackPressedDispatcher?.onBackPressed()
+            onEditingFinishedListener.onEditingFinished()
         }
     }
 
@@ -146,6 +153,10 @@ class ShopItemFragment : Fragment() {
         etCount = view.findViewById(R.id.editText_count)
         saveButton = view.findViewById(R.id.save_button)
 
+    }
+
+    interface OnEditingFinishedListener {
+        fun onEditingFinished()
     }
 
     companion object {
