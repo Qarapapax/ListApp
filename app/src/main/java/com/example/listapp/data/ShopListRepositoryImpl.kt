@@ -2,6 +2,7 @@ package com.example.listapp.data
 
 import android.app.Application
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.map
 import com.example.listapp.domain.ShopItem
 import com.example.listapp.domain.ShopListRepository
 
@@ -29,6 +30,8 @@ class ShopListRepositoryImpl(application: Application) : ShopListRepository {
     }
 
     override fun getShopList(): LiveData<List<ShopItem>> {
-        return shopListDao.getShopList()
+        return shopListDao.getShopList().map {
+            mapper.mapListDbModelToListEntity(it)
+        }
     }
 }
