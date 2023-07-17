@@ -2,18 +2,10 @@ package com.example.listapp.presentation
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
-import android.widget.Button
-import android.widget.EditText
-import androidx.lifecycle.ViewModelProvider
+import androidx.appcompat.app.AppCompatActivity
 import com.example.listapp.R
 import com.example.listapp.domain.ShopItem
-import com.example.listapp.presentation.viewmodels.ShopItemViewModel
-import com.google.android.material.textfield.TextInputLayout
-import java.lang.RuntimeException
 
 class ShopItemActivity : AppCompatActivity(), ShopItemFragment.OnEditingFinishedListener {
     private var screenMode = MODE_UNKNOWN
@@ -33,7 +25,11 @@ class ShopItemActivity : AppCompatActivity(), ShopItemFragment.OnEditingFinished
             MODE_ADD -> ShopItemFragment.newInstanceAddItem()
             else -> throw RuntimeException("Unknown screen mode $screenMode")
         }
-        supportFragmentManager.beginTransaction().replace(R.id.shop_item_container, fragment)
+        supportFragmentManager.beginTransaction()
+            .replace(
+                R.id.shop_item_container,
+                fragment
+            )
             .commit()
     }
 
