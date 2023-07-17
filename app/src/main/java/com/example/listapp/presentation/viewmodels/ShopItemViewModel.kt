@@ -1,18 +1,18 @@
 package com.example.listapp.presentation.viewmodels
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.example.listapp.data.ShopListRepositoryImpl
 import com.example.listapp.domain.AddShopItemUseCase
 import com.example.listapp.domain.EditShopItemUseCase
 import com.example.listapp.domain.GetShopItemUseCase
 import com.example.listapp.domain.ShopItem
-import java.lang.Exception
 
-class ShopItemViewModel : ViewModel() {
+class ShopItemViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val repository = ShopListRepositoryImpl
+    private val repository = ShopListRepositoryImpl(application)
     private val addShopItemUseCase = AddShopItemUseCase(repository)
     private val editShopItemUseCase = EditShopItemUseCase(repository)
     private val getShopItemUseCase = GetShopItemUseCase(repository)
